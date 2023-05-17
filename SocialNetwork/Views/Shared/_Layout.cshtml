@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Network</title>
+    <link rel="stylesheet" href="~/webpack/css/index.css"/>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+    </header>
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div>
+            &copy; 2023 - SocialNetwork
+        </div>
+    </footer>
+    <script src="~/webpack/index.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
