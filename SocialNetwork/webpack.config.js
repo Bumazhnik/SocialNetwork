@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "wwwroot/webpack"),
     filename: "[name].js",
-    publicPath: "/",
+    publicPath: "/webpack",
   },
   resolve: {
     extensions: [".js", ".ts"],
