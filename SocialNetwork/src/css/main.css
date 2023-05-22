@@ -1,7 +1,95 @@
+
+html{
+    font-family:Arial, sans-serif;
+}
 html,body{
     margin:0;
+    box-sizing:border-box;
 }
 body{
     width:100%;
     min-height:100vh;
+    background-color:var(--bg-color);
+    color:var(--main-color);
+}
+.mainHeader {
+    position:fixed;
+    top:0;
+    width: 100%;
+    height: 50px;
+    background-color: var(--header-color);
+    box-shadow: 0 1px gray;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.logo {
+    width: 200px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration:none;
+    font-size:1.5rem;
+}
+.logo:visited{
+    color:white;
+}
+.searchBar {
+    height: 25px;
+    width: 15rem;
+    font-size:1rem;
+    margin-right: 20px;
+    color: white;
+    background-color: #363636;
+    border-radius:15px;
+    padding-left:10px;
+}
+footer{
+    padding-top:30px;
+    padding-bottom:10px;
+    text-align:center;
+}
+.postContainer {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.post,.imgPost {
+    margin-bottom:10px;
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+    background-color: var(--post-bg-color);
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.post:hover,.imgPost:hover {
+    border: 1px solid darkgray;
+}
+.rating{
+    margin-top:20px;
+}
+.likeButton, .dislikeButton,.commentsButton {
+    color: var(--btn-color);
+    background-color: var(--btn-bg-color);
+    border-radius: 5px;
+    padding:5px;
+}
+.postTitle{
+    margin:10px 0;
+}
+.postAuthor{
+    color:var(--post-author-color);
+}
+:root {
+    --header-color: #1a1a1a;
+    --btn-color:white;
+    --btn-bg-color:#010101;
+    --post-author-color:gray;
+    --bg-color:black;
+    --post-bg-color:#212121;
+    --main-color: white;
 }

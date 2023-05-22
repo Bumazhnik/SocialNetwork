@@ -8,7 +8,9 @@
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
+    <header class="mainHeader">
+        <a href="@Url.Action("Index","Home")" class="logo">MySN</a>
+        <input type="text" placeholder="Search..." class="searchBar"/>
     </header>
     <div>
         <main role="main">

@@ -1,8 +1,21 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SocialNetwork.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+builder.Services.AddSingleton<IPasswordHasher<User>>(new PasswordHasher<User>());
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options => //CookieAuthenticationOptions
+        {
+            options.LoginPath = "/Account/Login";
+            options.AccessDeniedPath = "/Account/Login";
+        });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -20,10 +20,47 @@ module.exports = {
         test: /\.ts$/,
         use: "ts-loader",
       },
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
-      },
+          {
+              test: /\.s?css$/,
+              use: [
+                  // Save the CSS as a separate file to allow caching                            
+                  MiniCssExtractPlugin.loader,
+                  {
+                      // Translate CSS into CommonJS modules
+                      loader: 'css-loader',
+                  },
+                  {
+                      // Run postcss actions
+                      loader: 'postcss-loader',
+                      options: {
+                          postcssOptions: {
+                              plugins: [
+                                  function () {
+                                      return [require('autoprefixer')];
+                                  }
+                              ],
+                          },
+                      },
+                  },
+                  {
+                      loader: 'sass-loader',
+                      options: {
+                          sassOptions: {
+                              outputStyle: "compressed",
+                          }
+                      }
+                  }
+              ],
+          },
+          {
+              test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/i,
+              type: 'asset/resource',
+              generator: {
+                  //filename: 'fonts/[name]-[hash][ext][query]'
+                  filename: './fonts/[name][ext][query]'
+              }
+          }
+
     ],
   },
   plugins: [
