@@ -10,7 +10,7 @@ namespace SocialNetwork.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        private IPasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+        private IPasswordHasher<User> hasher = new PasswordHasher<User>();
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
@@ -21,7 +21,7 @@ namespace SocialNetwork.Models
             string adminEmail = "admin@mail.ru";
             string adminPassword = "123456";
             var user = new User { Email = adminEmail, Name = "admin", RoleId = adminRole.Id };
-            string hashPassword = passwordHasher.HashPassword(user, adminPassword);
+            string hashPassword = hasher.HashPassword(user, adminPassword);
             user.Password = hashPassword;
             return user;
         }

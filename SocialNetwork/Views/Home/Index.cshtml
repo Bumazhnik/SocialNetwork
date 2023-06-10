@@ -1,49 +1,36 @@
-﻿<div class="postContainer">
+﻿@using SocialNetwork.Models;
+@model List<Post>
+
+<div class="postContainer">
 @{
-    for (int i = 0; i < 20; i++)
+    foreach(var post in Model)
     {
         <div class="post">
             <div class="postAuthor">
-                <span>Posted by </span><a class="postAuthorLink" href="/">ffpw</a><span> in </span><a class="postCommunityLink" href="/">all</a>
+                <span>Posted by </span><a class="postAuthorLink" href="/">@post.Author</a><span> in </span><a class="postCommunityLink" href="/">all</a>
             </div>
-            <h1 class="postTitle">A very long title</h1>
-            <div class="postText">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </div>
-            <div class="rating">
-                <button class="likeButton">
-                    <i class="bi bi-hand-thumbs-up"></i>
-                    <span class="count">900000000000000000</span>
-                </button>
-                <button class="dislikeButton">
-                    <i class="bi bi-hand-thumbs-down"></i>
-                    <span class="count">900000000000000000</span>
-                </button>
-                <button class="commentsButton">
-                    <i class="bi bi-chat-left-fill"></i>
-                    <span>Comments</span>
-                </button>
-            </div>
-        </div>
-        <div class="imgPost">
-            <div class="postAuthor">
-                <span>Posted by </span><a class="postAuthorLink" href="/">ffpw</a><span> in </span><a class="postCommunityLink" href="/">all</a>
-            </div>
-            <h1 class="postTitle">Placeholder image</h1>
-            <div class="postImgContainer">
-                <div class="postImg">
-                    <img src="https://placehold.co/600x400" />
-                </div>
-            </div>
+            <h1 class="postTitle">@post.Title</h1>
+            @switch(@post.PostType){
+                case PostType.Text:
+                    <div class="postText">@post.Text</div>
+                break;
+                case PostType.Image:
+                    <div class="postImgContainer">
+                        <div class="postImg">
+                            <img src="@post.Image" />
+                        </div>
+                    </div>
+                break;
+            }
 
             <div class="rating">
                 <button class="likeButton">
                     <i class="bi bi-hand-thumbs-up"></i>
-                    <span class="count">900000000000000000</span>
+                    <span class="count">@post.Likes</span>
                 </button>
                 <button class="dislikeButton">
                     <i class="bi bi-hand-thumbs-down"></i>
-                    <span class="count">900000000000000000</span>
+                    <span class="count">@post.Dislikes</span>
                 </button>
                 <button class="commentsButton">
                     <i class="bi bi-chat-left-fill"></i>

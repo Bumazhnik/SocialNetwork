@@ -10,6 +10,20 @@
 <body>
     <header class="mainHeader">
         <a href="@Url.Action("Index","Home")" class="logo">MySN</a>
+        <nav class="navbar">
+            <a href="@Url.Action("Index","Home")">Main</a>
+            <a href="@Url.Action("MakePost","Home")">Make post</a>
+            <a href="@Url.Action("AdminOnly","Test")">Admin only</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="@Url.Action("Register","Account")">@User.Identity.Name</a>
+                <a href="@Url.Action("Logout","Account")">Logout</a>
+            }
+            else{
+                <a href="@Url.Action("Login","Account")">Login</a>
+                <a href="@Url.Action("Register","Account")">Register</a>
+            }
+        </nav>
         <input type="text" placeholder="Search..." class="searchBar"/>
     </header>
     <div>

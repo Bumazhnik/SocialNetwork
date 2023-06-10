@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 html{
-    font-family:Arial, sans-serif;
+    font-family:Verdana, sans-serif;
 }
 html,body{
     margin:0;
@@ -13,6 +13,9 @@ body{
     min-height:100vh;
     background-color:var(--bg-color);
     color:var(--main-color);
+}
+main{
+    margin-top: 100px;
 }
 .mainHeader {
     position:fixed;
@@ -54,7 +57,6 @@ footer{
     text-align:center;
 }
 .postContainer {
-    margin-top: 100px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -96,6 +98,25 @@ footer{
     display:flex;
     justify-content:center;
 }
+.navbar{
+    background-color: var(--navbar-bg-color);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:50px;
+    border: 1px solid gray;
+}
+.navbar a{
+    display:block;
+    height:35px;
+    color:var(--main-color);
+    text-decoration:none;
+    padding:0 20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
 :root {
     --header-color: #1a1a1a;
     --btn-color:white;
@@ -104,4 +125,5 @@ footer{
     --bg-color:black;
     --post-bg-color:#212121;
     --main-color: white;
+    --navbar-bg-color:#363636;
 }
