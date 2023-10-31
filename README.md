@@ -5,7 +5,7 @@ Social Network, but it's actually an electronic bulletin board, written in ASP.N
 ## Build
 Clone this repository and create "Database" folder in project directory
 ```shell
-mkdir SocialNetwork/Database
+mkdir SocialNetwork\Database
 ```
 Run this command
 ```shell
