@@ -4,18 +4,18 @@ Social Network, but it's actually an electronic bulletin board, written in ASP.N
 .Net, npm is required for this to work
 ## Build
 Clone this repository and create "Database" folder in project directory
-```shell
+```bat
 mkdir SocialNetwork\Database
 ```
 Run this command
-```shell
+```bat
 npm install
 ```
 Build Typescript/CSS with Webpack (npm script included)
-```shell
+```bat
 npm run build
 ```
 Compile and execute application
-```shell
+```bat
 dotnet run
 ```
