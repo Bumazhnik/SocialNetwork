@@ -1,5 +1,5 @@
 # SocialNetwork
-Social Network, but it's actually an electronic bulletin board, written in ASP.NET MVC 6
+Social Network, but it's actually an electronic bulletin board, written in ASP.NET 6 MVC
 ## Prerequisites
 .Net, npm is required for this to work
 ## Build
