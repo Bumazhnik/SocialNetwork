@@ -10,6 +10,7 @@ namespace SocialNetwork.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Post> Posts { get; set; }
         private IPasswordHasher<User> hasher = new PasswordHasher<User>();
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
@@ -36,12 +37,25 @@ namespace SocialNetwork.Models
             Role userRole = new Role { Id = 2, Name = userRoleName };
             User adminUser = MakeAdmin(adminRole);
             adminUser.Id = 1;
+            Post post = new Post
+            {
+                Title = "Welcome to MySN",
+                Author = "MySN",
+                Text = "This is a electronic bulletin board for everyone to use!",
+                Likes = 42,
+                Image = "",
+                PostType = PostType.Text,
+                Id = 1,
+            };
+
+
 
             /*var converter = new ValueConverter<HashSet<int>, string>(
             v => string.Join(";", v),
             v => new HashSet<int>(v.Split(";", StringSplitOptions.RemoveEmptyEntries).Select(val => int.Parse(val))));*/
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             modelBuilder.Entity<User>().HasData(new User[] { adminUser });
+            modelBuilder.Entity<Post>().HasData(new Post[] { post });
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -364,4 +364,4 @@ FodyWeavers.xsd
 
 #webpack
 /SocialNetwork/wwwroot/webpack/
-/SocialNetwork/applicationcontextdb.db
+/SocialNetwork/Database/

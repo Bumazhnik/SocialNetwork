@@ -12,34 +12,15 @@ namespace SocialNetwork.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ApplicationContext db;
-        static List<Post> posts;
         public HomeController(ILogger<HomeController> logger,ApplicationContext _db)
         {
             _logger = logger;
             db = _db;
         }
-        static HomeController(){
-            posts = new List<Post>();
-            for(int i = 0;i<1;i++){
-                Post post = new Post();
-                post.Title = "Post from Controller";
-                post.Author = "homecontroller";
-                post.Text = "A very meaningful text";
-                post.Likes = 42;
-                post.PostType = PostType.Text;
-                posts.Add(post);
-                post = new Post();
-                post.Title = "Another post from Controller";
-                post.Author = "homecontroller";
-                post.Image = "https://placehold.co/300x400";
-                post.PostType = PostType.Image;
-                posts.Add(post);
-            }
-        }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(posts);
+            return View(await db.Posts.ToListAsync());
         }
         [HttpGet]
         [Authorize]
@@ -62,7 +43,8 @@ namespace SocialNetwork.Controllers
                     post.PostType = PostType.Image;
                     post.Image = model.Image;
                 }
-                posts.Add(post);
+                db.Posts.Add(post);
+                await db.SaveChangesAsync();
             }
 
             return RedirectToAction("Index");
