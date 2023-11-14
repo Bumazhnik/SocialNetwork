@@ -1,12 +1,13 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SocialNetwork.Controllers
 {
     public class TestController : Controller
     {
         [Authorize(Roles = "admin")]
-        public IActionResult AdminOnly(){
+        public IActionResult AdminOnly()
+        {
             return View();
         }
     }

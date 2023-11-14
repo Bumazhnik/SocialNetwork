@@ -1,20 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Models;
 using SocialNetwork.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using System.Diagnostics;
 
 namespace SocialNetwork.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private ApplicationContext db;
-        public HomeController(ILogger<HomeController> logger,ApplicationContext _db)
+        public HomeController(ApplicationContext _db)
         {
-            _logger = logger;
             db = _db;
         }
         [HttpGet]
@@ -24,22 +21,27 @@ namespace SocialNetwork.Controllers
         }
         [HttpGet]
         [Authorize]
-        public IActionResult MakePost(){
+        public IActionResult MakePost()
+        {
             return View();
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> MakePost(MakePostViewModel model){
-            if(model != null){
+        public async Task<IActionResult> MakePost(MakePostViewModel model)
+        {
+            if (model != null)
+            {
                 Post post = new Post();
-                post.Title=model.Title;
+                post.Title = model.Title;
                 User user = await GetCurrentUser();
                 post.Author = user.Name;
-                if(!string.IsNullOrEmpty(model.Text)){
+                if (!string.IsNullOrEmpty(model.Text))
+                {
                     post.PostType = PostType.Text;
                     post.Text = model.Text;
                 }
-                else{
+                else
+                {
                     post.PostType = PostType.Image;
                     post.Image = model.Image;
                 }
@@ -54,10 +56,10 @@ namespace SocialNetwork.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+
         private async Task<User> GetCurrentUser()
         {
-            var user = await db.Users.FirstOrDefaultAsync(x=>x.Name == User.Identity.Name);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Name == User.Identity.Name);
             return user;
         }
     }

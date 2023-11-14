@@ -1,13 +1,11 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Models;
 using SocialNetwork.ViewModels;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-using System.Diagnostics;
 
 namespace SocialNetwork.Controllers
 {
@@ -15,7 +13,8 @@ namespace SocialNetwork.Controllers
     {
         ApplicationContext db;
         IPasswordHasher<User> hasher;
-        public AccountController(ApplicationContext _db,IPasswordHasher<User> _hasher){
+        public AccountController(ApplicationContext _db, IPasswordHasher<User> _hasher)
+        {
             db = _db;
             hasher = _hasher;
         }
@@ -33,8 +32,8 @@ namespace SocialNetwork.Controllers
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email || u.Name == model.Name);
                 if (user == null)
                 {
-                    // добавляем пользователя в бд
-                    user = new User { Email = model.Email,Name = model.Name};
+                    // adding user to db
+                    user = new User { Email = model.Email, Name = model.Name };
                     string hashPass = hasher.HashPassword(user, model.Password);
                     user.Password = hashPass;
                     Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
@@ -44,7 +43,7 @@ namespace SocialNetwork.Controllers
                     db.Users.Add(user);
                     await db.SaveChangesAsync();
 
-                    await Authenticate(user); // аутентификация
+                    await Authenticate(user); // authentication
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -73,7 +72,7 @@ namespace SocialNetwork.Controllers
                     switch (result)
                     {
                         case PasswordVerificationResult.Success:
-                            await Authenticate(user); // аутентификация
+                            await Authenticate(user); // authentication
 
                             return RedirectToAction("Index", "Home");
 
@@ -90,16 +89,16 @@ namespace SocialNetwork.Controllers
         }
         private async Task Authenticate(User user)
         {
-            // создаем один claim
+            // making one claim
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
-            // создаем объект ClaimsIdentity
+            // making ClaimsIdentity object
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
-            // установка аутентификационных куки
+            // setting authentication cookie
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
         public async Task<IActionResult> Logout()

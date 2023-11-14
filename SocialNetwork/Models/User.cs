@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace SocialNetwork.Models
+﻿namespace SocialNetwork.Models
 {
     public class User
     {

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.Data;
 
 namespace SocialNetwork.Models
 {
@@ -32,7 +29,7 @@ namespace SocialNetwork.Models
             string userRoleName = "user";
 
 
-            // добавляем роли
+            // adding roles
             Role adminRole = new Role { Id = 1, Name = adminRoleName };
             Role userRole = new Role { Id = 2, Name = userRoleName };
             User adminUser = MakeAdmin(adminRole);
@@ -48,11 +45,6 @@ namespace SocialNetwork.Models
                 Id = 1,
             };
 
-
-
-            /*var converter = new ValueConverter<HashSet<int>, string>(
-            v => string.Join(";", v),
-            v => new HashSet<int>(v.Split(";", StringSplitOptions.RemoveEmptyEntries).Select(val => int.Parse(val))));*/
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             modelBuilder.Entity<User>().HasData(new User[] { adminUser });
             modelBuilder.Entity<Post>().HasData(new Post[] { post });
